@@ -1,0 +1,5 @@
+/* css/order.css */
+.order-card{background:#fff;padding:16px;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,0.04)}
+.order-card label{font-weight:600}
+.order-card input, .order-card select{width:100%;padding:8px;border-radius:8px;border:1px solid #d6dbe0;margin-bottom:10px}
+.btn-order{background:#3498db;color:#fff;padding:10px;border-radius:10px;border:none;cursor:pointer;width:100%}
