@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Stok Bahan Ajar - SITTA</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/stok.css">
+  <script src="https://unpkg.com/vue@2.7.14/dist/vue.js"></script>
+</head>
+<body>
+  <div id="stokApp" class="page-container">
+    <header>
+      <h2>Stok Bahan Ajar</h2>
+    </header>
+
+    <div v-if="loading" class="loading">Memuat data...</div>
+
+    <div v-else>
+      <stock-table :stok="stok" :upbjj-list="upbjjList" :kategori-list="kategoriList"></stock-table>
+    </div>
+  </div>
+
+  <script src="js/services/api.js"></script>
+  <script src="js/components/app-modal.js"></script>
+  <script src="js/components/status-badge.js"></script>
+  <script src="js/components/stock-table.js"></script>
+
+  <script>
+  (async function(){
+    try{
+      const data = await api.loadData();
+      window._stok = data.stok || [];
+      window._upbjj = data.upbjjList || [];
+      window._kategori = data.kategoriList || [];
+      new Vue({
+        el:'#stokApp',
+        data:{ loading:false, stok: window._stok, upbjjList: window._upbjj, kategoriList: window._kategori }
+      });
+    } catch(err){
+      document.querySelector('#stokApp').innerHTML = '<div class="loading">Gagal memuat data: '+err.message+'</div>';
+      console.error(err);
+    }
+  })();
+  </script>
+</body>
+</html>
